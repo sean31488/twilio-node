@@ -1,0 +1,16 @@
+{
+  "name": "twilio-node",
+  "version": "1.0.0",
+  "description": "",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "request": "^2.88.2",
+    "twilio": "^3.55.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "exec": "node -r dotenv/config"
+  },
+  "author": "",
+  "license": "ISC"
+}
