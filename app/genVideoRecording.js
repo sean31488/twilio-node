@@ -34,11 +34,20 @@ client.video.rooms(roomSid)
     // 有share screen
     if (shareScreenRecordings.length > 0) {
       videoLayout = {
-        grid: {
-          max_columns: 2,
-          max_rows: 2,
+        main: {
+          width: 960,
+          height: 540,
+          x_pos: 308,
+          y_pos: 90,
+          video_sources: ['share-screen_*'],
+        },
+        column: {
+          width: 284,
+          height: 540,
           x_pos: 12,
-          y_pos: 12,
+          y_pos: 90,
+          max_columns: 1,
+          reuse: 'show_newest',
           video_sources: videoRecordings
         }
       }
