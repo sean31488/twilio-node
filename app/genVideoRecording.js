@@ -9,30 +9,25 @@ client.video.rooms(roomSid)
   .then(recordings => {
     console.log('list recordings success')
 
-    // 排序，使用者影像不分順序，先進會議先顯示，share screen總是在最後
-    let videoRecordings = []
-    let shareScreenRecordings = []
+    // 分離人像及分享螢幕視訊軌
+    let hasShareScreen = false
+    let avatarRecordings = []
     recordings.forEach(recording => {
       if (recording.type === 'video') {
         // share screen
         if (recording.trackName.startsWith('share-screen')) {
-          shareScreenRecordings.push(recording.sid)
+          hasShareScreen = true
         } else {
-          videoRecordings.push(recording.sid)
+          avatarRecordings.push(recording.sid)
         }
       }
     })
-
-    if (shareScreenRecordings.length > 0) {
-      videoRecordings = videoRecordings.concat(shareScreenRecordings)
-    }
-    // 排序結束
 
     // 定義layout
     let videoLayout = {}
 
     // 有share screen
-    if (shareScreenRecordings.length > 0) {
+    if (hasShareScreen) {
       videoLayout = {
         main: {
           width: 960,
@@ -48,7 +43,7 @@ client.video.rooms(roomSid)
           y_pos: 90,
           max_columns: 1,
           reuse: 'show_newest',
-          video_sources: videoRecordings
+          video_sources: avatarRecordings // 僅有人像視訊軌
         }
       }
     } else { // 無share screen
@@ -60,7 +55,7 @@ client.video.rooms(roomSid)
           y_pos: 180,
           width: 1256,
           height: 360,
-          video_sources: videoRecordings
+          video_sources: avatarRecordings
         }
       }
     }
